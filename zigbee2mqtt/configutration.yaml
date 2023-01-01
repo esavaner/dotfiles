@@ -1,0 +1,25 @@
+homeassistant: true
+permit_join: false
+mqtt:
+  base_topic: zigbee2mqtt
+  server: mqtt://192.168.0.107:1883
+  user: mqttroot
+  password: "###"
+serial:
+  adapter: deconz
+  port: >-
+    /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2660156-if00
+frontend:
+  port: 9442
+advanced:
+  pan_id: 37170
+  ext_pan_id:
+    - 221
+    - 221
+    - 221
+    - 221
+    - 221
+    - 221
+    - 221
+    - 221
+  channel: 25

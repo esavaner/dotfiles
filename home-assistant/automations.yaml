@@ -1,0 +1,102 @@
+- id: "1671584798885"
+  alias: Poranne grzanie Zosi
+  description: ""
+  trigger:
+    - platform: time
+      at: 05:10:00
+  condition:
+    - condition: time
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+      after: 00:00:01
+      before: "23:59:00"
+  action:
+    - device_id: 1c81e3d2a02ce555107a633d4c474932
+      domain: climate
+      entity_id: climate.kaloryfer_lazienka
+      type: set_preset_mode
+      preset_mode: manual
+    - device_id: d9e03b0893c103f2243e691242f96398
+      domain: climate
+      entity_id: climate.kaloryfer_salon
+      type: set_preset_mode
+      preset_mode: manual
+    - service: mqtt.publish
+      data:
+        topic: zigbee2mqtt/Kaloryfer łazienka/set
+        payload: '{"current_heating_setpoint": 25}'
+    - service: mqtt.publish
+      data:
+        topic: zigbee2mqtt/Kaloryfer salon/set
+        payload: '{"current_heating_setpoint": 25}'
+  mode: single
+- id: "1671585708458"
+  alias: Wyjście Zosi do pracy
+  description: ""
+  trigger:
+    - platform: time
+      at: 06:20:00
+  condition:
+    - condition: time
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+      after: 00:00:01
+      before: "23:59:00"
+  action:
+    - device_id: 1c81e3d2a02ce555107a633d4c474932
+      domain: climate
+      entity_id: climate.kaloryfer_lazienka
+      type: set_preset_mode
+      preset_mode: holiday
+    - device_id: d9e03b0893c103f2243e691242f96398
+      domain: climate
+      entity_id: climate.kaloryfer_salon
+      type: set_preset_mode
+      preset_mode: manual
+    - service: mqtt.publish
+      data:
+        topic: zigbee2mqtt/Kaloryfer salon/set
+        payload: '{"current_heating_setpoint": 21.5}'
+  mode: single
+- id: "1671886895633"
+  alias: Uruchamianie alarmu czujnikiem otwarcia drzwi
+  description: ""
+  trigger:
+    - type: opened
+      platform: device
+      device_id: 7c9d438297288771ce9b18af4fc4c484
+      entity_id: binary_sensor.drzwi_wejsciowe_contact
+      domain: binary_sensor
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.alarm
+      state: armed_away
+  action:
+    - service: alarm_control_panel.alarm_trigger
+      data: {}
+      target:
+        entity_id: alarm_control_panel.alarm
+  mode: single
+- id: "1671887215395"
+  alias: Powiadomienie po włączonym alarmie
+  description: ""
+  trigger:
+    - platform: state
+      entity_id:
+        - alarm_control_panel.alarm
+      to: triggered
+  condition: []
+  action:
+    - service: notify.mieszkanie
+      data:
+        message: Drzwi otwarte w mieszkaniu
+        title: Alarm
+  mode: single
