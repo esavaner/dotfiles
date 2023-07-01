@@ -1,0 +1,10 @@
+rsync -avh "/mnt/cache_main/appdata" "/mnt/disks/Backup/Venus"
+rsync -avh "/mnt/cache_main/domains" "/mnt/disks/Backup/Venus"
+rsync -avh "/mnt/cache_main/system" "/mnt/disks/Backup/Venus"
+
+rsync -avh "/mnt/disk1/Filipa" "/mnt/disks/Backup/Venus"
+rsync -avh "/mnt/disk1/Media" "/mnt/disks/Backup/Venus"
+rsync -avh "/mnt/disk1/Video" "/mnt/disks/Backup/Venus"
+rsync -avh "/mnt/disk1/Zosi" "/mnt/disks/Backup/Venus"
+rsync -avh "/mnt/disk1/isos" "/mnt/disks/Backup/Venus"
+rsync -avh "/mnt/disk1/reserve" "/mnt/disks/Backup/Venus"
